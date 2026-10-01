@@ -1,0 +1,16 @@
+---
+- name: Collect system info
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Gather facts
+      setup:
+        filter: "ansible_hostname,ansible_os_family,ansible_memtotal_mb,ansible_processor"
+
+    - name: Show system info
+      debug:
+        msg: |
+          Hostname: {{ ansible_hostname }}
+          OS Family: {{ ansible_os_family }}
+          Total RAM (MB): {{ ansible_memtotal_mb }}
+          CPU: {{ ansible_processor[0] }}
