@@ -14,3 +14,11 @@
           OS Family: {{ ansible_os_family }}
           Total RAM (MB): {{ ansible_memtotal_mb }}
           CPU: {{ ansible_processor[0] }}
+    - name: Show current server time
+      command: date
+      register: current_time
+
+    - name: Print server time
+      debug:
+        msg: "Current server time: {{ current_time.stdout }}"
+
