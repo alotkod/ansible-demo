@@ -3,9 +3,13 @@
   hosts: localhost
   connection: local
   tasks:
-    - name: Gather facts
+    - name: Gather facts first
       setup:
-        filter: "ansible_hostname,ansible_os_family,ansible_memtotal_mb,ansible_processor"
+        filter: "ansible_hostname,ansible_os_family,ansible_memtotal_mb,ansible_processor,group_names"
+
+    - name: Debug - Show host and its groups
+      debug:
+        msg: "I am running on {{ inventory_hostname }}, which belongs to groups: {{ group_names | join(', ') }}"
 
     - name: Show system info
       debug:
@@ -14,6 +18,7 @@
           OS Family: {{ ansible_os_family }}
           Total RAM (MB): {{ ansible_memtotal_mb }}
           CPU: {{ ansible_processor[0] }}
+
     - name: Show current server time
       command: date
       register: current_time
@@ -21,4 +26,3 @@
     - name: Print server time
       debug:
         msg: "Current server time: {{ current_time.stdout }}"
-
