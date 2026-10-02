@@ -1,0 +1,18 @@
+---
+- name: Check server time and uptime
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Get current time
+      command: date
+      register: current_time
+
+    - name: Get system uptime
+      command: uptime -p
+      register: server_uptime
+
+    - name: Report time and uptime
+      debug:
+        msg: |
+          Current time: {{ current_time.stdout }}
+          System uptime: {{ server_uptime.stdout }}

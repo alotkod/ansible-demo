@@ -1,0 +1,8 @@
+---
+- name: Debug host groups
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Show which groups the host belongs to
+      debug:
+        msg: "Host {{ inventory_hostname }} is in groups: {{ group_names | join(', ') }}"
