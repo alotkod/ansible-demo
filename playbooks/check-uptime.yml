@@ -11,6 +11,16 @@
       command: uptime -p
       register: server_uptime
 
+    - name: Fail if server is too fresh (less than 1 hour)
+      fail:
+        msg: "WARNING: Server is too fresh! Uptime is only {{ server_uptime.stdout }}. Possible recent reboot."
+      when: server_uptime.stdout | regex_search('up less than 1 hour|up 0 hours')
+
+    - name: Warn if uptime is between 1 and 4 hours
+      debug:
+        msg: "NOTE: Server has been running for {{ server_uptime.stdout }}. Relatively recent boot."
+      when: server_uptime.stdout | regex_search('up [1-3] hours')
+
     - name: Report time and uptime
       debug:
         msg: |
