@@ -24,6 +24,9 @@
    ansible-playbook --syntax-check -i hosts.ini site.yml
 
 2. Запуск всех проверок:
+   ```bash
    ansible-playbook -i hosts.ini site.yml
-```bash
-3. ansible-playbook -i hosts.ini playbooks/check-uptime.yml
+
+3. Запуск отедельной проверки:
+   ```bash
+   ansible-playbook -i hosts.ini playbooks/check-uptime.yml
