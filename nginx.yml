@@ -1,0 +1,28 @@
+---
+- name: Установка и настройка nginx
+  hosts: linux
+  become: true
+
+  tasks:
+    - name: Обновить кэш пакетов
+      ansible.builtin.apt:
+        update_cache: true
+
+
+    - name: Установить nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+
+    - name: Убедиться, что nginx запущен и в автозапуске
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
+
+    - name: Разрешить HTTP в фаерволе
+      community.general.ufw:
+        rule: allow
+        port: "80"
+        proto: tcp
+
