@@ -22,8 +22,8 @@
 1. Проверка синтаксиса:
    ```bash
    ansible-playbook --syntax-check -i hosts.ini site.yml
-
+   ```bash
 2. Запуск всех проверок:
    ansible-playbook -i hosts.ini site.yml
-
+```bash
 3. ansible-playbook -i hosts.ini playbooks/check-uptime.yml
