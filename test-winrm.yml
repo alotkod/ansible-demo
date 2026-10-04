@@ -1,0 +1,12 @@
+---
+- name: Проверка связи с Windows
+  hosts: windows
+  tasks:
+    - name: Получить имя хоста
+      ansible.windows.win_command: hostname
+      register: win_info
+
+    - name: Показать результат
+      ansible.builtin.debug:
+        var: win_info.stdout
+
