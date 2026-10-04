@@ -1,4 +1,7 @@
 ---
+# Скопируй в windows.yml и впиши реальный пароль
+# ВАЖНО: windows.yml добавлен в .gitignore — не коммить его!
+
 ansible_user: Administrator
 ansible_password: ВСТАВЬ_ПАРОЛЬ
 ansible_connection: winrm
@@ -6,4 +9,3 @@ ansible_winrm_transport: basic
 ansible_winrm_scheme: http
 ansible_port: 5985
 ansible_winrm_server_cert_validation: ignore
-
