@@ -28,19 +28,19 @@
 1. Проверка синтаксиса:
    ```bash
    ansible-playbook --syntax-check nginx.yml
-```
+   ```
 
 2. Проверка связи с хостом:
    ```bash
    ansible linux -m ping
-```
+   ```
 
-3. Запуск отедельной проверки:
+3. Запуск отдельной проверки:
    ```bash
    ansible-playbook playbooks/check-uptime.yml
-```
+   ```
 
 4. Применение плейбука:
    ```bash
    ansible-playbook nginx.yml
-```
+   ```
