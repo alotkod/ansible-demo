@@ -2,17 +2,25 @@
 - name: Установка и настройка nginx
   hosts: linux
   become: true
-
   tasks:
     - name: Обновить кэш пакетов
       ansible.builtin.apt:
         update_cache: true
 
-
     - name: Установить nginx
       ansible.builtin.apt:
         name: nginx
         state: present
+
+    # --- НОВАЯ ЗАДАЧА ---
+    - name: Положить кастомную страницу index.html
+      ansible.builtin.copy:
+        src: my_index.html
+        dest: /var/www/html/index.html
+        owner: www-data
+        group: www-data
+        mode: '0644'
+    # ---------------------
 
     - name: Убедиться, что nginx запущен и в автозапуске
       ansible.builtin.service:
@@ -21,8 +29,8 @@
         enabled: true
 
     - name: Разрешить HTTP в фаерволе
-      community.general.ufw:
+      ansible.builtin.ufw:
         rule: allow
-        port: "80"
+        port: 80
         proto: tcp
 
