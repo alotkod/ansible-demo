@@ -8,26 +8,31 @@
   - `check-facts.yml` — сбор базовой информации о системе.
   - `check-uptime.yml` — проверка времени работы сервера и условные предупреждения.
   - `debug-groups.yml` — отладка принадлежности хостов к группам.
-- `site.yml` — оркестратор, запускает все плейбуки последовательно.
+- `my_index.html` — Кастомная страница сайта
 - `hosts.ini` — инвентарь (локальное окружение).
-- `nginx.yml` - цель поднять web-сервер на nginx
+- `nginx.yml` - плейбук установки и настройки nginx
+- `ansible.cfg` - настройки Ansible (указывает путь к инвентарю)
 
 ## Возможности
 
 - Модульная архитектура: каждый плейбук решает одну задачу.
 - Условная логика (`when`): автоматическое предупреждение, если сервер перезагружен недавно или работает 1–4 дня.
-- Контроль инвентаря: явное указание `-i hosts.ini` для изоляции окружения.
+- Контроль инвентаря: явное указание `-i hosts.ini`не нужно, всё в прописано в ansible.cfg.
 
 ## Как запустить
 
 1. Проверка синтаксиса:
    ```bash
-   ansible-playbook --syntax-check -i hosts.ini site.yml
+   ansible-playbook --syntax-check nginx.yml
 
-2. Запуск всех проверок:
+2. Проверка связи с хостом:
    ```bash
-   ansible-playbook -i hosts.ini site.yml
+   ansible linux -m ping
 
 3. Запуск отедельной проверки:
    ```bash
-   ansible-playbook -i hosts.ini playbooks/check-uptime.yml
+   ansible-playbook playbooks/check-uptime.yml
+
+4. Применение плейбука:
+   ```bash
+   ansible-playbook nginx.yml
