@@ -1,0 +1,22 @@
+---
+- name: Установка и настройка IIS на Windows
+  hosts: windows
+  tasks:
+    - name: Установить роль веб-сервера IIS
+      ansible.windows.win_feature:
+        name: Web-Server
+        state: present
+        include_management_tools: true
+      register: iis_install
+
+    - name: Убедиться, что служба W3SVC запущена
+      ansible.windows.win_service:
+        name: W3SVC
+        state: started
+        start_mode: auto
+
+    - name: Развернуть кастомную страницу
+      ansible.windows.win_copy:
+        src: my_index.html
+        dest: C:\inetpub\wwwroot\index.html
+
